@@ -2,8 +2,10 @@ package com.example.recyclerviewmultipleselection;
 
 public class Contact {
 
-    String name;
-    String number;
+    private String name;
+    private String number;
+
+    private boolean isChecked;
 
     public Contact(String name, String number) {
         this.name = name;
@@ -24,5 +26,13 @@ public class Contact {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

@@ -15,14 +15,9 @@ import java.util.List;
 public class MultipleSelectionAdapter extends RecyclerView.Adapter<MultipleSelectionAdapter.MultipleSelectionViewHolder> {
 
     private List<Contact> contactList;
-    private boolean[] selected;
 
     public MultipleSelectionAdapter(List<Contact> contactList) {
         this.contactList = contactList;
-        selected = new boolean[contactList.size()];
-        for (int i = 0; i < contactList.size(); ++i) {
-            selected[i] = false;
-        }
     }
 
     @NonNull
@@ -53,17 +48,14 @@ public class MultipleSelectionAdapter extends RecyclerView.Adapter<MultipleSelec
             this.binding = binding;
         }
 
-        public void bind(Contact contact) {
-            binding.textViewName.setText(contact.name);
-            binding.textViewNumber.setText(contact.number);
+        public void bind(final Contact contact) {
+            binding.imageViewIconCheck.setVisibility(contact.isChecked() ? View.VISIBLE : View.GONE);
+            binding.textViewName.setText(contact.getName());
+            binding.textViewNumber.setText(contact.getNumber());
 
             binding.constraintLayoutContainer.setOnClickListener(v -> {
-                var adapterPosition = getAdapterPosition();
-                selected[adapterPosition] = !selected[adapterPosition];
-                binding.imageViewIconCheck.setVisibility(
-                        selected[adapterPosition] ? View.VISIBLE : View.GONE
-                );
-                notifyItemChanged(adapterPosition);
+                contact.setChecked(!contact.isChecked());
+                binding.imageViewIconCheck.setVisibility(contact.isChecked() ? View.VISIBLE : View.GONE);
             });
         }
     }
@@ -72,7 +64,7 @@ public class MultipleSelectionAdapter extends RecyclerView.Adapter<MultipleSelec
         List<Contact> selectedContactsList = new ArrayList<>();
 
         for (int i = 0; i < contactList.size(); ++i) {
-            if (selected[i]) {
+            if (contactList.get(i).isChecked()) {
                 selectedContactsList.add(contactList.get(i));
             }
         }

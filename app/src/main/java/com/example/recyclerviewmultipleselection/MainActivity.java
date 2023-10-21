@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
             msg.append("selected: \n");
             if (selectedContacts != null) {
                 selectedContacts.forEach(selectedContact -> {
-                    msg.append(selectedContact.name);
+                    msg.append(selectedContact.getName());
                     msg.append(" ");
-                    msg.append(selectedContact.number);
+                    msg.append(selectedContact.getNumber());
                     msg.append("\n");
                 });
             } else {
